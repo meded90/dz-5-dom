@@ -1,120 +1,33 @@
-# Домашнее задание по лекции JavaScript ООП
+# Домашнее задание к лекции DOM
 
-Пользуясь наработками домашних заданий 2 и 3 необходимо сделать следующее:
+## 1. Форма
 
-  * Сделать "Абстрактный" конструктор Model представляющий из себя абстрактный объект
-  и имеющий возможность работать с любыми объектами (основа любых объектов)
+  * Сделать форму, позволяющую добавлять элемент Event в коллекцию Events
+  * Форма должна состоять из всех полей необходимых для вашего конструктора (разрешено использовать HTML5 input элементы)
+  * Элементы формы должны соответствовать вашим данным:
+    * Описание `<textarea>`
+    * Название `<input type="text">`
+    * Дата `<input type="date">`
+    * Зведность `<select>`
+    * И тд
+  * По клику на кнопку `<input type="submit">` вы должны будете "обобрать" форму и на основе ее данных создать и добавить объект Event
+  * После клика необходимо очистить форму
+  * Будет очень хорошо если вы сделаете валидацию формы
 
-```javascript
-var Model = function (data) {
+## 2. Представление
 
-};
+  * Необходимо создать список (какой-то код HTML) на этой же странице, который представляет текущее состояние колекции Events
+  * В начале работы этот список пустой
+  * При добавлении элемента в список Events этот элемент должен появляться и на странице
 
-/**
- * @param {Object} attributes
- *
- * @example
- *     item.set({title: "March 20", content: "In his eyes she eclipses..."});
- */
-Model.prototype.set = function (attributes) {};
-/**
- * @param {String} attribute
- */
-Model.prototype.get = function (attribute) {};
-/**
- * @param {Object} attributes
- */
-Model.prototype.validate = function (attributes) {throw new Error('this is Abstract method')};
-// Другие необходимые вам поля
-```
+## 3. Фильтрация
 
-  * Необходимо унаследовать от Абстракнтого конструктора Model ваш объект Event
+  * Кроме формы и вам необходимо сделать набор инпутов, которыми вы сможете управлять фильтрацией текущей коллекции
 
-```javascript
-var Event = function (data) {
-    Model.apply(this, arguments);
-};
-inherit(Event, Model);
+Пример предствления формы [http://jsfiddle.net/LMebS/](http://jsfiddle.net/LMebS/)
 
-/**
- * @param {Object} attributes
- */
-Event.prototype.validate = function (attributes) {
-    if (attributes.end < attributes.start) {
-        return "can't end before it starts";
-    }
-};
-// Другие необходимые вам поля
-```
+## Ссылки
 
-  * Cоздать абстрактную коллекцию Collection представляющую из себя набор объектов Model каждый вызов метода Collection
-  **должен создавать новую коллекцию, а не изменять текущую**
-
-```javascript
-var Collection = function (items) {
-
-};
-
-/**
- * @return {Collection}
- */
-Collection.prototype.add = function (model) {};
-/**
- * @param {Function} selector
- *
- * @see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/filter
- *
- * @example
- *    new Collection().filter(function (item) {
- *        return item.get('attendee').indexOf("me") !== -1;
- *    });
- * @return {Collection}
- */
-Collection.prototype.filter = function (selector) {};
-/**
- * @return {Collection}
- */
-Collection.prototype.sortBy = function (fieldName) {};
-// Другие необходимые вам поля
-```
-
-  * На основе Collection вам необходимо создать вашу коллекцию Events и добавить в нее функции, которые вы сделали в домашнем задании
-  3 лекции. Каждый вызов метода Events **должен создавать новую коллекцию, а не изменять текущую**
-
-```javascript
-var Events = function (items) {
-    Collection.apply(this, arguments);
-};
-inderit(Events, Collection);
-
-/**
- * @return {Events}
- */
-Events.prototype.findOnlyMyEvents = function () {};
-/**
- * @return {Events}
- */
-Events.prototype.findFutureEvents = function () {};
-/**
- * @return {Events}
- */
-Events.prototype.findPastEvents = function () {};
-/**
- * @return {Events}
- */
-Events.prototype.sortByName = function () {};
-// Другие необходимые вам поля
-```
-
-Все это должно работать как-то так
-
-```javascript
-var allEvents = new Events()
-.add(new Event({"name": "Pewpe", "attendees": ["me"]}))
-.add([new Event, new Event, new Event]);
-
-var allMyFutureEventsOrderedByStar = allEvents
-.findFutureEvents()
-.findMyEvents()
-.sortByStars();
-```
+  * http://htmlbook.ru/html/input
+  * http://htmlbook.ru/html/input/type
+  * http://caniuse.com/#search=input
